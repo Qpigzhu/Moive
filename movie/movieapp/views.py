@@ -4,10 +4,9 @@ from django.core.paginator import Paginator
 from movie_s import pa
 from .models import Movie
 # Create your views here.
-def movie_list(request):
-    content = {}
-    movie_list = Movie.objects.all()
-    paginator =Paginator(movie_list,15) #每页10篇
+
+def base(request,objets_list):
+    paginator =Paginator(objets_list,15) #每页10篇
     page_num = request.GET.get('page',1) #获取Url的页面参数(GET请求)
     page_of_movie = paginator.get_page(page_num) #获取当前页数的内容
     #获取当前页面前后各2页的页码范围
@@ -26,10 +25,17 @@ def movie_list(request):
     if page_range[-1] != paginator.num_pages:
         page_range.append(paginator.num_pages)
 
+    context = {}
+    context['movie_list'] = page_of_movie.object_list
+    context['page_range'] = page_range
+    context['page_of_blogs'] = page_of_movie
+    return context
 
-    content['movie_list'] = page_of_movie.object_list
-    content['page_range'] = page_range
-    content['page_of_blogs'] = page_of_movie
+
+def movie_list(request):
+    content = {}
+    movie_list = Movie.objects.all()
+    content = base(request, movie_list)
     return render(request,'index.html',content)
 
 
@@ -41,5 +47,12 @@ def movie_datail(request,movie_pk):
 
 def movie_delete(request):
      Movie.objects.all().delete()
-
      return render(request,'ok.html',context = {'ok':'ok'})
+
+def find_movie(request):
+    context = {}
+    movie_name = request.GET.get('q')
+    movie_list = Movie.objects.filter(title__icontains=movie_name)
+    context = base(request, movie_list)
+    context['movie_list'] = movie_list
+    return render(request,'find_movie.html',context)

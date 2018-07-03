@@ -1,0 +1,84 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'movie.css' %}">
+
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-7">
+                <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'find_movie' %}">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <input type="search" class="form-control" placeholder="Search" name="q">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                  </div>
+                </form>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+
+          <div class="content">
+              <div class="panel panel-default">
+                  <div class="panel-heading">最新电影列表</div>
+                  <div class="panel-body">
+                      <ul>
+                        {% block content %}{% endblock %}
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="paginator">
+            <ul class="pagination">
+              <li>
+                {% if page_of_blogs.has_previous %}{# 判断是在第一页#}
+                <a href="?page={{page_of_blogs.previous_page_number}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                {% else %}
+                <span aria-hidden="true">&laquo;</span>
+                {% endif %}
+              </li>
+                {% for page_num in page_range %}    {# 循环页数 #}
+                  {% if page_num == page_of_blogs.number %}
+                    <li class="active"><span>{{ page_num }}</span></li>
+                  {% else %}
+                  {% if page_num == '...'%}
+                    <li><span>{{ page_num }}</span></li>
+                  {% else %}
+                    <li><a href="?page={{ page_num }}">{{ page_num }}</a></li>
+                  {% endif %}
+                  {% endif %}
+
+                {% endfor %}
+                  <li>
+                      {% if page_of_blogs.has_next %} {# 判断是否有下一页 #}
+                          <a href="?page={{page_of_blogs.next_page_number}}" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                          </a>
+                      {% else %}
+                          <span aria-hidden="true">&raquo;</span>
+                      {% endif %}
+                  </li>
+                </ul>
+                    <p>
+                        共有{{ page_of_blogs.paginator.count }}电影
+                        当前第{{ page_of_blogs.number }}页 共{{ page_of_blogs.paginator.num_pages }}页
+                    </p>
+                </div>
+          </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+</body>
+</html>

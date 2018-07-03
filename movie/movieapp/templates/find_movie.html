@@ -2,11 +2,12 @@
 {% load staticfiles %}
 
 
-{% block title %}首页{% endblock %}
+{% block title %}电影查找列表{% endblock %}
 
 
 {% block content %}
      {% for movie in movie_list %}
         <li class="title"><a href="{% url 'movie_datail' movie.pk %}">{{ movie.title }}</a></li>
      {% endfor %}
+
 {% endblock %}
