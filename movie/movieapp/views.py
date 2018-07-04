@@ -51,7 +51,15 @@ def movie_delete(request):
 
 def find_movie(request):
     context = {}
+    error_msg = ''
     movie_name = request.GET.get('q')
+
+    #判断是否为空
+    if not movie_name:
+        error_msg = '请输入关键词'
+        context['error_msg'] = error_msg
+        return render(request, 'find_movie.html',context)
+
     movie_list = Movie.objects.filter(title__icontains=movie_name)
     context = base(request, movie_list)
     context['movie_list'] = movie_list

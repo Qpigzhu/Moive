@@ -12,3 +12,6 @@ ul{
 .form-group{
 	padding-top: 30px;
 }
+div.paginator{
+	text-align: center;
+}

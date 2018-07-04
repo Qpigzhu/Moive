@@ -6,8 +6,14 @@
 
 
 {% block content %}
+    {% if error_msg %}
+        {{ error_msg }}
+    {% endif %}
+
+
      {% for movie in movie_list %}
         <li class="title"><a href="{% url 'movie_datail' movie.pk %}">{{ movie.title }}</a></li>
+     {% empty %}
+        <p>暂无此电影</p>
      {% endfor %}
-
 {% endblock %}
