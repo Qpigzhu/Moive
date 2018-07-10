@@ -1,0 +1,15 @@
+{% extends 'home.html' %}
+
+
+{% block content %}
+    {% if error_msg %}
+        {{ error_msg }}
+    {% endif %}
+
+    {% for i in aqi_list %}
+        {{i}}
+
+    {% empty %}
+        <p>暂无数据</p>
+    {% endfor%}
+{% endblock %}

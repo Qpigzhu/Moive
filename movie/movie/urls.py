@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',movie_list,name='movie_list'),
     path('movie/',include('movieapp.urls')),
+    path('pm25/',include('pm25.urls'))
 ]
