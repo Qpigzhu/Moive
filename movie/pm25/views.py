@@ -21,9 +21,14 @@ def pa(request):
     aqi_list = main(city_name)
     context = {}
     context['aqi_list'] = aqi_list
-    context['aqi'] = aqi_list[0]
-    context['city_name'] = aqi_list[1]
-    context['affect'] = aqi_list[2]
-    context['action'] = aqi_list[3]
+    try:
+        context['aqi'] = aqi_list[0]
+        context['city_name'] = aqi_list[1]
+        context['affect'] = aqi_list[2]
+        context['action'] = aqi_list[3]
+    except:
+        error_msg = '请输入有效城市名或暂无数据'
+        context['error_msg'] = error_msg
+
     return render(request,'pm25.html',context)
 
