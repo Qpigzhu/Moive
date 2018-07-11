@@ -1,18 +1,30 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>pm</title>
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
 </head>
 <body>
-    <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'pa' %}">
-        {% csrf_token %}
-      <div class="form-group">
-        <input type="search" class="form-control" placeholder="电影" name="city">
-        <button type="submit" class="btn btn-default">搜索</button>
-      </div>
-    </form>
-    {% block content %}{% endblock %}
+    <div class="row">
+        <div class="col-xs-3"></div>
+        <div class="header col-xs-6">
+            <div class="aqi_title">
+                忘记什么时候，用颜色代表空气
+                <img src="{% static 'aqi.png' %}">
+            </div>
+            <form method="get" action="{% url 'pa' %}">
+                {% csrf_token %}
+                <div class="search-bar clearf">
+                    <input type="search" placeholder="城市名" name="city">
+                    <button type="submit">查询</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-3"></div>
+    </div>
+     {% block content %}{% endblock %}
 </body>
 </html>

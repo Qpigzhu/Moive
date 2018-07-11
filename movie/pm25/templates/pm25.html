@@ -1,15 +1,37 @@
 {% extends 'home.html' %}
-
+{% load staticfiles %}
 
 {% block content %}
-    {% if error_msg %}
-        {{ error_msg }}
-    {% endif %}
+	<div class="row">
+        <div class="col-xs-3"></div>
+        <div class="content col-xs-6">
+			<div class="panel panel-default">
+			  <div class="panel-heading">{{city_name}}</div>
+			  <div class="panel-body">
 
-    {% for i in aqi_list %}
-        {{i}}
+			    {% if error_msg %}
+			    <div class="alert alert-info" role="alert">
+			    	{{error_msg}}
+			    </div>
+			    {% else %}
 
-    {% empty %}
-        <p>暂无数据</p>
-    {% endfor%}
+
+			  	<div class="aqi">
+			  		<img src="{% static 'aqi.png' %}">
+			  		<span class="aqi-val">AQI:{{aqi}}</span>
+			  	</div>
+
+			    <div class="alert alert-success" role="alert">
+			    	{{affect}}
+			    </div>
+			    <div class="alert alert-info" role="alert">
+			    	{{action}}
+			    </div>
+			    {% endif %}
+
+			  </div>
+			</div>
+        </div>
+    </div>
+
 {% endblock %}

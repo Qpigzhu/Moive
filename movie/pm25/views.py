@@ -21,5 +21,9 @@ def pa(request):
     aqi_list = main(city_name)
     context = {}
     context['aqi_list'] = aqi_list
+    context['aqi'] = aqi_list[0]
+    context['city_name'] = aqi_list[1]
+    context['affect'] = aqi_list[2]
+    context['action'] = aqi_list[3]
     return render(request,'pm25.html',context)
 
