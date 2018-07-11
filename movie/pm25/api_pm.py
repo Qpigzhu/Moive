@@ -37,6 +37,9 @@ def get_info(url):
     action = sel.xpath('//div[@class="action"]/p/text()')[0].strip()
     aqi_list.append(action)
 
+    level = sel.xpath('//div[@class="level"]/h4/text()')[0].strip()
+    aqi_list.append(level)
+    
     return aqi_list
 
 

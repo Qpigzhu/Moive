@@ -1,6 +1,6 @@
 {% extends 'home.html' %}
 {% load staticfiles %}
-
+{% block PM25_active %}active{% endblock %}
 {% block content %}
 	<div class="row">
         <div class="col-xs-3"></div>
@@ -19,6 +19,7 @@
 			  	<div class="aqi">
 			  		<img src="{% static 'aqi.png' %}">
 			  		<span class="aqi-val">AQI:{{aqi}}</span>
+			  		<span class="level">{{level}}</span>
 			  	</div>
 
 			    <div class="alert alert-success" role="alert">

@@ -87,3 +87,9 @@ a {
 	text-align: center;
 	padding-bottom: 6px;
 }
+
+.level{
+	font-size: 25px;
+	width: 500;
+	color: green;
+}

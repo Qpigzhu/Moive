@@ -26,6 +26,7 @@ def pa(request):
         context['city_name'] = aqi_list[1]
         context['affect'] = aqi_list[2]
         context['action'] = aqi_list[3]
+        context['level'] = aqi_list[4]
     except:
         error_msg = '请输入有效城市名或暂无数据'
         context['error_msg'] = error_msg
